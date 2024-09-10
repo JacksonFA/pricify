@@ -1,0 +1,41 @@
+{
+  "name": "tagit",
+  "version": "0.0.1",
+  "main": "main.ts",
+  "repository": "https://github.com/JacksonFA/tagit.git",
+  "author": "JacksonFA <jackson.f205@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "apps/api",
+    "apps/web"
+  ],
+  "scripts": {
+    "api": "yarn workspace @tagit/api dev",
+    "web": "yarn workspace @tagit/web dev",
+    "all": "yarn workspaces run dev",
+    "lint": "yarn biome check --write",
+    "prepare": "husky",
+    "commit": "yarn lint && git add . && cz"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.8.3",
+    "@commitlint/cli": "^19.4.1",
+    "@commitlint/config-conventional": "^19.4.1",
+    "commitizen": "^4.3.0",
+    "cz-conventional-changelog": "^3.3.0",
+    "husky": "^9.1.5",
+    "lint-staged": "^15.2.10",
+    "typescript": "^5.6.2"
+  },
+  "lint-staged": {
+    "**/*.{ts,tsx}": [
+      "npm run lint"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}
