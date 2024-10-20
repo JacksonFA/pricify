@@ -18,7 +18,7 @@ app.register(fastifyJwt, {
   }
 })
 app.register(fastifyCookie)
-app.get('/', () => ({ message: `Tagit API running on ${os.hostname()}` }))
+app.get('/', () => ({ message: `Orquestrando API running on ${os.hostname()}` }))
 // app.register(ROUTES)
 
 app.setErrorHandler((error, _, reply) => {

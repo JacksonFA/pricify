@@ -1,9 +1,9 @@
 {
-  "name": "tagit",
+  "name": "orquestrando",
   "version": "0.0.1",
   "main": "main.ts",
-  "repository": "https://github.com/JacksonFA/tagit.git",
-  "author": "JacksonFA <jackson.f205@gmail.com>",
+  "repository": "https://github.com/arcenojackson/orquestrando.git",
+  "author": "arcenojackson <jackson.f205@gmail.com>",
   "license": "MIT",
   "private": true,
   "workspaces": [
@@ -11,8 +11,8 @@
     "apps/web"
   ],
   "scripts": {
-    "api": "yarn workspace @tagit/api dev",
-    "web": "yarn workspace @tagit/web dev",
+    "api": "yarn workspace @orquestrando/api dev",
+    "web": "yarn workspace @orquestrando/web dev",
     "all": "yarn workspaces run dev",
     "lint": "yarn biome check --write",
     "prepare": "husky",
