@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -11,4 +5,72 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+enum OrganizationType {
+  CHURCH
+}
+
+enum UserRole {
+  ADMIN
+  USER
+}
+
+model Address {
+  id         String @id @default(uuid())
+  street     String
+  city       String
+  state      String
+  area       String
+  zip        String
+  country    String
+  complement String
+  number     String
+
+  Organization   Organization @relation(fields: [organizationId], references: [id])
+  organizationId String
+}
+
+model Organization {
+  id               String           @id @default(uuid())
+  name             String
+  document         String
+  website          String?
+  whatsapp         String?
+  instagram        String?
+  type             OrganizationType @default(CHURCH)
+  service_provider Boolean          @default(false)
+  Address          Address[]
+  User             User[]
+}
+
+model User {
+  id    String   @id @default(uuid())
+  name  String
+  email String   @unique
+  role  UserRole
+
+  Profile   Profile @relation(fields: [profileId], references: [id])
+  profileId String
+
+  Organization   Organization? @relation(fields: [organizationId], references: [id])
+  organizationId String?
+
+  Team    Team?   @relation(fields: [teamsId], references: [id])
+  teamsId String?
+}
+
+model Profile {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  permissions String[]
+  User        User[]
+}
+
+model Team {
+  id          String  @id @default(uuid())
+  name        String
+  description String?
+  User        User[]
 }
