@@ -4,8 +4,11 @@ import fastifyCookie from '@fastify/cookie'
 import fastifyJwt from '@fastify/jwt'
 import fastify from 'fastify'
 import { ZodError } from 'zod'
+import { routes } from './core/routes'
 
-export const app = fastify()
+export const app = fastify({
+  logger: true
+})
 
 app.register(fastifyJwt, {
   secret: env.JWT_SECRET,
@@ -18,8 +21,8 @@ app.register(fastifyJwt, {
   }
 })
 app.register(fastifyCookie)
+app.register(routes)
 app.get('/', () => ({ message: `Orquestrando API running on ${os.hostname()}` }))
-// app.register(ROUTES)
 
 app.setErrorHandler((error, _, reply) => {
   if (error instanceof ZodError) {

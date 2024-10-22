@@ -1,11 +1,9 @@
 import { app } from './app'
 import { env } from './env'
 
-app
-  .listen({
-    host: '0.0.0.0',
-    port: env.PORT
-  })
-  .then(() => {
-    console.log(`🚀 HTTP Server Running on :${env.PORT}!`)
-  })
+app.listen({ port: env.PORT || 3000 }, (err) => {
+  if (err) {
+    app.log.error(`Error starting http server: ${err}`)
+    process.exit(1)
+  }
+})
