@@ -7,25 +7,43 @@ export class PrismaOrganizationsRepository implements OrganizationsRepository {
   constructor() {
     this.prisma_client = new PrismaClient()
   }
+
   async create(organization: any): Promise<void> {
-    const organization_created = await this.prisma_client.organization.create({
+    await this.prisma_client.organization.create({
       data: organization
     })
-    console.log(organization_created)
   }
+
   async update(organization: any): Promise<void> {
-    const organization_updated = await this.prisma_client.organization.update({
-      data: organization
+    await this.prisma_client.organization.update({
+      data: organization,
+      where: {
+        id: organization.id
+      }
     })
-    console.log(organization_updated)
   }
+
   async delete(id: string): Promise<void> {
-    const organization_updated = await this.prisma_client.organization.delete()
+    await this.prisma_client.organization.delete({
+      where: {
+        id
+      }
+    })
   }
+
   async find(filter: any): Promise<any[]> {
-    throw new Error('Method not implemented.')
+    const result = await this.prisma_client.organization.findMany({
+      where: filter
+    })
+    return result ?? []
   }
+
   async findById(id: string): Promise<any> {
-    throw new Error('Method not implemented.')
+    const result = await this.prisma_client.organization.findUnique({
+      where: {
+        id
+      }
+    })
+    return result ?? null
   }
 }
